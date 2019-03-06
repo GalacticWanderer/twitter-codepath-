@@ -21,6 +21,6 @@ The following **bonus** features are implemented:
 
 ## Video Walkthrough
 
-Here's a walkthrough of implemented user stories:
+![Alt Text](https://media.giphy.com/media/toqGXhMpLJ1SZ4asP2/giphy.gif)
 
 
