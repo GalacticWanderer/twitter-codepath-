@@ -40,7 +40,7 @@ class HomeTableViewController: UITableViewController{
     
     //gets called to load tweets
     @objc func loadTweets(){
-        numberOfTweets = 10
+        numberOfTweets = 5
         let tweetParams = ["count" : numberOfTweets]
         
         TwitterAPICaller.client?.getDictionariesRequest(url: tweetAPI, parameters: tweetParams as [String: Any], success: { (tweets: [NSDictionary]) in
@@ -63,7 +63,7 @@ class HomeTableViewController: UITableViewController{
     
     //helps fetch more past tweets
     func loadMoreTweetsOnScrollEnd(){
-        numberOfTweets = numberOfTweets + 10
+        numberOfTweets = numberOfTweets + 5
         let tweetParams = ["count" : numberOfTweets]
         
         TwitterAPICaller.client?.getDictionariesRequest(url: tweetAPI, parameters: tweetParams as [String: Any], success: { (tweets: [NSDictionary]) in
