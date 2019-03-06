@@ -23,4 +23,8 @@ The following **bonus** features are implemented:
 
 ![Alt Text](https://media.giphy.com/media/toqGXhMpLJ1SZ4asP2/giphy.gif)
 
+**Note** 
+
+Being rate limited by twitter api made it harder to record the gif.
+
 
