@@ -23,7 +23,12 @@ class HomeTableViewController: UITableViewController{
         
         setsCellHeights()
         loadTweets()
-        pullToRefresh()
+        //pullToRefresh()
+    }
+    
+    //gets called whenever view becomes visible
+    override func viewDidAppear(_ animated: Bool) {
+        //loadTweets()
     }
     
     // incoeporates pull to refresh
@@ -40,7 +45,7 @@ class HomeTableViewController: UITableViewController{
     
     //gets called to load tweets
     @objc func loadTweets(){
-        numberOfTweets = 5
+        numberOfTweets = 15
         let tweetParams = ["count" : numberOfTweets]
         
         TwitterAPICaller.client?.getDictionariesRequest(url: tweetAPI, parameters: tweetParams as [String: Any], success: { (tweets: [NSDictionary]) in
@@ -57,6 +62,8 @@ class HomeTableViewController: UITableViewController{
             
         }, failure: { (Error) in
             print(Error)
+            self.displayAlert(title: "Failed to load tweets!", message: "Do you wanna retry?")
+            
         })
         
     }
@@ -80,10 +87,22 @@ class HomeTableViewController: UITableViewController{
         })
     }
     
-    //gets triggered when user scrolls to the bott0om of the tableView
+    //simple alert controller with 2 actions
+    func displayAlert(title: String, message: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Nah", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Sure", style: .default, handler: {(alert: UIAlertAction!) in self.loadTweets()}))
+        
+        self.present(alert, animated: true)
+    }
+    
+    /*//gets triggered when user scrolls to the bott0om of the tableView
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         indexPath.row + 1 == tweetArray.count ? loadMoreTweetsOnScrollEnd() : nil
     }
+    */
+ 
     
     // does logout call to api, writes to Userdefaults and sends user back to the isInitialView
     @IBAction func logoutButton(_ sender: UIBarButtonItem) {
