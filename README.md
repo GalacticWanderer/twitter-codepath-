@@ -1,4 +1,4 @@
-# Project 3 - *Name of App Here*
+# Project 3 - *twitter Part 1*
 
 **twitter** is a basic twitter app to read your tweets.
 
@@ -21,6 +21,10 @@ The following **bonus** features are implemented:
 
 ## Video Walkthrough
 
-Here's a walkthrough of implemented user stories:
+![Alt Text](https://media.giphy.com/media/toqGXhMpLJ1SZ4asP2/giphy.gif)
+
+**Note** 
+
+Being rate limited by twitter api made it harder to record the gif.
 
 
