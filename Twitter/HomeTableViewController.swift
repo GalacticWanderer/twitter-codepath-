@@ -123,27 +123,6 @@ class HomeTableViewController: UITableViewController{
         UserDefaults.standard.set(false, forKey: "isLoggedIn")
         dismiss(animated: true, completion: nil)
     }
-    
-    @IBOutlet weak var reTweetButton: UIButton!
-    @IBOutlet weak var favButton: UIButton!
-    
-    var favorited: Bool = false
-    
-    func setFavorite(isFavorited: Bool){
-        favorited = isFavorited
-        
-        
-    }
-    
-    @IBAction func didRetweet(_ sender: UIButton) {
-        
-    }
-    
-    @IBAction func didFavorite(_ sender: UIButton) {
-        
-    }
-    
-    
 
     //configures cell and returns it
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -153,6 +132,17 @@ class HomeTableViewController: UITableViewController{
         
         cell.name.text = userInfo["name"] as? String
         cell.tweet.text = tweetArray[indexPath.row]["text"] as? String
+        
+        cell.setFavorited(isFavorited: tweetArray[indexPath.row]["favorited"] as! Bool)
+        cell.tweetID = tweetArray[indexPath.row]["id"] as? Int
+        
+        let reTweetCount = tweetArray[indexPath.row]["retweet_count"] as? Int
+        cell.reTweetCountLabel.text = "\(reTweetCount!)"
+        cell.reTweetCount = reTweetCount
+        cell.setRetweeted(isReTweeted: tweetArray[indexPath.row]["retweeted"] as! Bool)
+        
+        let favoriteCount = tweetArray[indexPath.row]["favorite_count"] as? Int
+        cell.favoriteCountLabel.text = "\(favoriteCount!)"
         
         //fetches the user profile pic from the given pic url
         let profileImageUrl = URL(string: userInfo["profile_image_url_https"] as! String)
