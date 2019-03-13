@@ -31,6 +31,18 @@ class HomeTableViewController: UITableViewController{
         //loadTweets()
     }
     
+    //detects when device orientation changes.
+    //I am using it to reload the tableView on switched to portratit mode so that autolayout doesn't look messed up
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        if UIDevice.current.orientation.isLandscape {
+            print("Landscape")
+        } else {
+            print("Portrait")
+            tableView.reloadData()
+        }
+    }
+    
     // incoeporates pull to refresh
     func pullToRefresh(){
         myRefreshControl.addTarget(self, action: #selector(loadTweets), for: .valueChanged)
@@ -111,6 +123,26 @@ class HomeTableViewController: UITableViewController{
         UserDefaults.standard.set(false, forKey: "isLoggedIn")
         dismiss(animated: true, completion: nil)
     }
+    
+    @IBOutlet weak var reTweetButton: UIButton!
+    @IBOutlet weak var favButton: UIButton!
+    
+    var favorited: Bool = false
+    
+    func setFavorite(isFavorited: Bool){
+        favorited = isFavorited
+        
+        
+    }
+    
+    @IBAction func didRetweet(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func didFavorite(_ sender: UIButton) {
+        
+    }
+    
     
 
     //configures cell and returns it
