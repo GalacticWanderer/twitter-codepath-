@@ -23,12 +23,12 @@ class HomeTableViewController: UITableViewController{
         
         setsCellHeights()
         loadTweets()
-        //pullToRefresh()
+        pullToRefresh()
     }
     
     //gets called whenever view becomes visible
     override func viewDidAppear(_ animated: Bool) {
-        //loadTweets()
+        loadTweets()
     }
     
     //detects when device orientation changes.
@@ -108,11 +108,10 @@ class HomeTableViewController: UITableViewController{
         self.present(alert, animated: true)
     }
     
-    /*//gets triggered when user scrolls to the bott0om of the tableView
+    //gets triggered when user scrolls to the bott0om of the tableView
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         indexPath.row + 1 == tweetArray.count ? loadMoreTweetsOnScrollEnd() : nil
     }
-    */
  
     
     // does logout call to api, writes to Userdefaults and sends user back to the isInitialView
