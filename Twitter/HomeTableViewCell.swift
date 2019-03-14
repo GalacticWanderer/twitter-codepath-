@@ -18,6 +18,7 @@ class HomeTableViewCell: UITableViewCell{
     @IBOutlet weak var favButton: UIButton!
     @IBOutlet weak var reTweetCountLabel: UILabel!
     @IBOutlet weak var favoriteCountLabel: UILabel!
+    @IBOutlet weak var mediaImageView: UIImageView!
     
     
     var favorited: Bool = false

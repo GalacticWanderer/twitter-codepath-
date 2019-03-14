@@ -8,13 +8,52 @@
 
 import UIKit
 
-class TweetViewController: UIViewController {
+class TweetViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var scrollTextView: UITextView!
+    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var charCounter: UITextField!
+    
+    var userInfo = [NSDictionary]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollTextView.becomeFirstResponder()
+        //roundsImageView()
+        scrollTextView.delegate = self
+        aGetReq()
+    }
+    
+    func aGetReq(){
+        TwitterAPICaller.client?.getUserDictionariesRequest(success: { (info: NSDictionary) in
+            
+            let profileImageUrl = URL(string: info["profile_image_url_https"] as! String)
+            let data = try? Data(contentsOf: profileImageUrl!)
+            
+            self.profileImageView.image = UIImage(data: data!)
+            
+        }, failure: { (Error) in
+            print("Error")
+        })
+    }
+    
+    func roundsImageView(){
+        profileImageView.layer.masksToBounds = false
+        profileImageView.layer.cornerRadius = 50
+        profileImageView.clipsToBounds = true
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
+        let numberOfChars = newText.count
+        countTheChars = newText.count
+        return numberOfChars < 140    // 10 Limit Value
+    }
+    
+    var countTheChars: Int = 0{
+        didSet{
+            charCounter.text = "\(countTheChars)"
+        }
     }
     
     @IBAction func onCancel(_ sender: UIBarButtonItem) {

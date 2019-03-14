@@ -59,6 +59,16 @@ class TwitterAPICaller: BDBOAuth1SessionManager {
             failure(error)
         })
     }
+    
+    func getUserDictionariesRequest(success: @escaping (NSDictionary) -> (), failure: @escaping (Error) -> ()){
+        let url = "https://api.twitter.com/1.1/users/show.json"
+        let params:[String:Any] = ["screen_name": "GalacticWandere"]
+        TwitterAPICaller.client?.get(url, parameters: params, success: { (task: URLSessionDataTask, response: Any?) in
+            success(response as! NSDictionary)
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        })
+    }
 
     func postRequest(url: String, parameters: [Any], success: @escaping () -> (), failure: @escaping (Error) -> ()){
         TwitterAPICaller.client?.post(url, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in

@@ -62,7 +62,6 @@ class HomeTableViewController: UITableViewController{
         
         TwitterAPICaller.client?.getDictionariesRequest(url: tweetAPI, parameters: tweetParams as [String: Any], success: { (tweets: [NSDictionary]) in
             self.tweetArray.removeAll()
-            
             for x in tweets{
                 self.tweetArray.append(x)
             }
@@ -123,7 +122,7 @@ class HomeTableViewController: UITableViewController{
         UserDefaults.standard.set(false, forKey: "isLoggedIn")
         dismiss(animated: true, completion: nil)
     }
-
+    
     //configures cell and returns it
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell", for: indexPath) as! HomeTableViewCell
@@ -148,8 +147,22 @@ class HomeTableViewController: UITableViewController{
         let profileImageUrl = URL(string: userInfo["profile_image_url_https"] as! String)
         let data = try? Data(contentsOf: profileImageUrl!)
         
-        //if pic exits, runn this
+        //getting the accursed media_url_https block ughhhh
+        let media = tweetArray[indexPath.row]["entities"] as! [String:[Any]]
+        if let x = media["media"]?[0]{
+            let y = x as! [String : Any]
+            print(y["media_url_https"] as! String)
+            
+            let mediaImageUrl = URL(string: y["media_url_https"] as! String)
+            let data = try? Data(contentsOf: mediaImageUrl!)
+            
+            cell.mediaImageView.image = UIImage(data: data!)
+        }
+        
+        
+        //if pic exits, run this
         if let imageData = data{
+            
             cell.profilePic.image = UIImage(data: imageData)
             
             //rounds and beautifies cell
